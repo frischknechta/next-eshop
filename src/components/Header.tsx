@@ -1,15 +1,55 @@
+"use client";
+
 import Link from "next/link";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+} from "@nextui-org/navbar";
+import { useState } from "react";
 
 export const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const menuItems = [
+    { display: "Shop", path: "/shop" },
+    { display: "About us", path: "/about" },
+  ];
+
   return (
-    <header className="flex h-12 bg-slate-500 justify-between items-center px-5">
-      <Link href="/">
-        <h1>My eShop</h1>
-      </Link>
-      <nav className="flex gap-5">
-        <Link href="/shop">Shop</Link>
-        <Link href="/about">About us</Link>
-      </nav>
-    </header>
+    <>
+      <Navbar shouldHideOnScroll onMenuOpenChange={setIsMenuOpen}>
+        <NavbarBrand>
+          <Link href={"/"}>
+            <h1>My eShop</h1>
+          </Link>
+        </NavbarBrand>
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="sm:hidden"
+        />
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          <NavbarItem>
+            <Link href="/shop">Shop</Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link href="/about">About us</Link>
+          </NavbarItem>
+        </NavbarContent>
+        <NavbarMenu>
+          {menuItems.map((item, index) => (
+            <NavbarMenuItem key={`${item}-${index}`}>
+              <Link className="w-full" href={item.path}>
+                {item.display}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </NavbarMenu>
+      </Navbar>
+    </>
   );
 };
