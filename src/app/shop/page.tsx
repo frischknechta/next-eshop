@@ -1,3 +1,4 @@
+import { Cart } from "@/components/Cart";
 import { ProductCard } from "@/components/ProductCard";
 import Link from "next/link";
 import { z } from "zod";
@@ -25,10 +26,13 @@ export default async function Shop() {
 
   return (
     <main>
-      <div className="m-5 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
-        {data.products.map((product: Product) => {
-          return <ProductCard key={product.id} product={product} />;
-        })}
+      <Cart />
+      <div className="container mx-auto px-10">
+        <div className="m-5 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+          {data.products.map((product: Product) => {
+            return <ProductCard key={product.id} product={product} />;
+          })}
+        </div>
       </div>
     </main>
   );
